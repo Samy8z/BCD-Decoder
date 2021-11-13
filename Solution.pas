@@ -26,25 +26,6 @@ begin
 	readLn(y);
 end;
 
-procedure RevArray(var arr: nibble);
-// REV_ARRAY
-// AL 2021-11-12
-// Inverse l'ordre des éléments d'un tableau
-// IN: arr
-// OUT: arr
-var
-	i, n: integer;
-	temp: boolean;
-begin
-	n := Length(arr);
-	for i := 0 to (n div 2) - 1 do
-	begin
-		temp := arr[i];
-		arr[i] := arr[n - 1 - i];
-		arr[n - 1 - i] := temp;
-	end;
-end;
-
 procedure RevArray(var arr: intArray);
 // REV_ARRAY
 // AL 2021-11-12
