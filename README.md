@@ -33,9 +33,9 @@ Auteurs: **H2WO4**, **Samy8z**
 
 5. Étape d'affichage des chiffres.  
  Maintenant que les données sont dans un format utilisable, nous pouvont les afficher à l'écran.
-   i. / ii. Procéure pour afficher un trait horizontal / vertical.  
+   1. / ii. Procéure pour afficher un trait horizontal / vertical.  
     Ce morceau de code est réutilisé plusieurs fois avec des paramètres différents, il a donc été jugé judicieux d'en faire ça propre procédure.
-      a. Procédure pour afficher un rectangle.  
+      1. Procédure pour afficher un rectangle.  
        Les deux procédures précédentes sont très similaires, pour éviter la répétition de code, il a été jugé plus élégant de les faire "hériter" d'une procédure mère.
 
 ![Arbre d'analyse](Arbre.png)
