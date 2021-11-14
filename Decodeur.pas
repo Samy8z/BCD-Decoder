@@ -1,4 +1,4 @@
-program Solution;
+program Decodeur;
 
 // Import du module d'affichage
 uses
@@ -36,10 +36,10 @@ procedure RevArray(var arr: intArray);
 // OUT: arr
 var
 	i, j: integer;
-	temp: integer;
+	tmp: integer;
 begin
 	i := 0;
-    j := Taille(arr) - 1;
+    j := Length(arr) - 1;
 
     while (i < j) do
     begin

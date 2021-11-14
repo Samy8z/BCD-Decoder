@@ -28,7 +28,7 @@ begin
     // S: Il manque les points virgules de fin de ligne
     // C: Ajout des point virgule
     i := 1;
-    j := Taille(arr);
+    j := Length(arr);
 
     while (i < j) do
     begin

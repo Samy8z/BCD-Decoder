@@ -19,14 +19,14 @@ var
 
 procedure IntToDigitArr(n: integer; var digitArr: ArrayInt);
 begin
-	FixerTaille(digitArr, 0);
+	SetLength(digitArr, 0);
 	i := 0;
 
 	repeat
 		// S: Il ne faut pas oublié les point-virgules
 		// C: Ajout des point-virgules
 		i := i + 1;
-		FixerTaille(digitArr, i);
+		SetLength(digitArr, i);
 
 		digitArr[i] := n mod 10;
 		n := n div 10;

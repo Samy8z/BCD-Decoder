@@ -29,8 +29,10 @@ var
 
 procedure DigitArrToBinArr(var digitArr: arrayInt; var binArr: arrayNibble);
 begin
-    t := taille(digitArr);
-    FixeTaille(binArr,t)
+    // S: Les noms sont en anglais en Pascal
+    // C: taille, FixeTaille -> Length, SetLength
+    t := Length(digitArr);
+    SetLength(binArr,t)
     // S: La variable n'est pas initialisée
     // F: La taille du tableau est calculée à nouveau, alors qu'elle est déjà dans t
     // C: i := -> i := 0 - taille(digitArr) -> t
