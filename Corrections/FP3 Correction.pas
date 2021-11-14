@@ -18,7 +18,7 @@ type // C: Type -> type
     arrayInt = array of integer;
 
     // F: Ces deux noms ne décrivent pas bien ce que représente chaque type
-    // C: tableau, ArrayTableau -> Nibble, ArrayNibble (Un nibble est 4 bits) (Un nom comme reprBin aurait aussi convenu)
+    // C: tableau, ArrayTableau -> nibble, arrayNibble (Un nibble est 4 bits)
     nibble = array [1..4] of boolean;
     arrayNibble = array of nibble;
 

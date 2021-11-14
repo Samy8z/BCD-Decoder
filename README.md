@@ -45,13 +45,6 @@ Auteurs: **H2WO4**, **Samy8z**
 ***
 ***
 
-## Équation de Karnaugh
-
-> TODO
-
-***
-***
-
 ## Éventuels bugs
 
 - Entrée d'un nombre supérieur à 32767. (Overflow, mais pas de crash)

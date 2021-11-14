@@ -12,6 +12,7 @@ type
 	dispSegments = array [1..7] of boolean;
 	dispSegmentsArray = array of dispSegments;
 
+
 procedure TakeInput(var inputInt, zoom, x, y: integer);
 // TAKE_INPUT
 // AL 2021-11-12
@@ -20,6 +21,7 @@ procedure TakeInput(var inputInt, zoom, x, y: integer);
 // OUT: inputInt, zoom, x, y
 begin
 	write('Enter a number, a zoom level, and coordinates: ');
+
 	read(inputInt);
 	read(zoom);
 	read(x);
@@ -33,16 +35,29 @@ procedure RevArray(var arr: intArray);
 // IN: arr
 // OUT: arr
 var
-	i, n: integer;
+	i, j: integer;
 	temp: integer;
 begin
-	n := Length(arr);
+	i := 0;
+    j := Taille(arr) - 1;
+
+    while (i < j) do
+    begin
+        tmp := arr[i];
+        arr[i] := arr[j];
+        arr[j] := tmp;
+
+        i := i + 1;
+        j := j - 1;
+    end;
+
+	{ n := Length(arr);
 	for i := 0 to (n div 2) - 1 do
 	begin
 		temp := arr[i];
 		arr[i] := arr[n - 1 - i];
 		arr[n - 1 - i] := temp;
-	end;
+	end; } // Autre version considérée, fonctionellement équivalente
 end;
 
 procedure IntToDigitArr(inputInt: integer; var digitArr: intArray);
@@ -55,71 +70,74 @@ var
 	n: integer;
 begin
 	SetLength(digitArr, 0);
+
 	repeat
 		n := Length(digitArr);
 		SetLength(digitArr, n + 1);
+
 		digitArr[n] := inputInt mod 10;
 		inputInt := inputInt div 10;
 	until inputInt = 0;
+
 	RevArray(digitArr);
 end;
 
-procedure ConvBin(digit: integer; var bin: nibble);
+procedure ConvBin(digit: integer; var binRepr: nibble);
 // CONV_BIN
 // AL 2021-11-12
 // Transforme un chiffre en tableau de 4 bits
 // IN: digit
-// OUT: bin
+// OUT: binRepr
 var
 	i: integer;
 begin
 	i := 4;
-	repeat
-		bin[i] := digit mod 2 = 1;
-		digit := digit div 2;
 
+	repeat
+		binRepr[i] := digit mod 2 = 1;
+
+		digit := digit div 2;
 		i := i - 1;
 	until digit = 0;
 end;
 
-
-procedure DigitArrToBinArr(var digitArr: intArray; var binArr: nibbleArray);
+procedure DigitArrToBinArr(var digitArr: intArray; var binReprArr: nibbleArray);
 // DIGIT_ARR_TO_BIN_ARR
 // AL 2021-11-12
 // Transforme un tableau de chiffres en tableau de tableau de 4 bits
 // IN: digitArr
-// OUT: binArr
+// OUT: binReprArr
 var
 	i, t: integer;
 begin
 	t := Length(digitArr);
-	SetLength(binArr, t);
+	SetLength(binReprArr, t);
+
 	for i := 0 to t - 1 do
-	begin
-		ConvBin(digitArr[i], binArr[i]);
-	end;
+		ConvBin(digitArr[i], binReprArr[i]);
 end;
 
-procedure ConvDispArr(var binArr: nibbleArray; var dispArr: dispSegmentsArray);
+procedure ConvDispArr(var binReprArr: nibbleArray; var dispArr: dispSegmentsArray);
 // CONV_DISP_ARR
 // AL 2021-11-12
 // Transforme un tableau de tableau de 4 bits en tableau de tableau de 7 bits pour l'affichage
 // Le fait en utilisant les formules de Karnaugh
-// IN: binArr
+// IN: binReprArr
 // OUT: dispArr
 var
 	a, b, c, d: boolean;
 	i, t: integer;
 begin
-	t := Length(binArr);
+	t := Length(binReprArr);
 	SetLength(dispArr, t);
+
 	for i := 0 to t - 1 do
 	begin
 		// Définition de raccourcis vers les bits
-		a := binArr[i][1];
-		b := binArr[i][2];
-		c := binArr[i][3];
-		d := binArr[i][4];
+		a := binReprArr[i][1];
+		b := binReprArr[i][2];
+		c := binReprArr[i][3];
+		d := binReprArr[i][4];
 
 		// Application des formules de Karnaugh
 		dispArr[i][1] := a or c or (d = b);
@@ -142,13 +160,11 @@ var
 	i, j: integer;
 begin
 	for i := 0 to ySize - 1 do
-	begin
 		for j := 0 to xSize - 1 do
 		begin
 			GotoXY(xStart + j, yStart + i);
 			write('*');
 		end;
-	end;
 end;
 
 procedure DrawVLine(xStart, yStart, ySize: integer);
@@ -198,18 +214,23 @@ begin
 		if dispArr[i][7] then
 			DrawHLine(x+1, y+zoom+1, zoom);
 		
+		// On déplace l'origine pour afficher le nombre suivant
 		x := x + zoom + 3;
 	end;
 end;
 
 
 var
+	// Variables entrées par l'utilisateur
 	inputInt: integer;
 	zoom: integer;
 	x, y: integer;
+
+	// Variables utilisées par le programme
 	digitArr: intArray;
-	binArr: nibbleArray;
+	binReprArr: nibbleArray;
 	dispArr: dispSegmentsArray;
+
 	// Utilisée seulement pour éviter l'arrêt imédiat du programme
 	_: string;
 
@@ -222,8 +243,8 @@ begin
 
 	// Data-process
 	IntToDigitArr(inputInt, digitArr);
-	DigitArrToBinArr(digitArr, binArr);
-	ConvDispArr(binArr, dispArr);
+	DigitArrToBinArr(digitArr, binReprArr);
+	ConvDispArr(binReprArr, dispArr);
 
 	// Data-out
 	ClrScr;
