@@ -212,6 +212,9 @@ var
 begin
 	// Data-in
 	TakeInput(inputInt, zoom, x, y);
+	// Décalage des coordonnées, pour correspondre à un système commençant en (0, 0)
+	x := x + 1;
+	y := y + 1;
 
 	// Data-process
 	IntToDigitArr(inputInt, digitArr);
