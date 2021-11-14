@@ -4,12 +4,14 @@ Projet d'affichage d'un nombre sur un 7-segment.
 Auteurs: **H2WO4**, **Samy8z**
 
 ***
+***
 
 ## Options incluses
 
 - Entrée d'un nombre plutôt qu'un chiffre
 - Entrée d'un niveau de zoom
 
+***
 ***
 
 ## Raisonement derrière l'analyse
@@ -38,8 +40,9 @@ Auteurs: **H2WO4**, **Samy8z**
       1. Procédure pour afficher un rectangle.  
        Les deux procédures précédentes sont très similaires, pour éviter la répétition de code, il a été jugé plus élégant de les faire "hériter" d'une procédure mère.
 
-![Arbre d'analyse](Arbre.png)
+![Arbre d'analyse](Images/Arbre.png)
 
+***
 ***
 
 ## Équation de Karnaugh
@@ -47,7 +50,50 @@ Auteurs: **H2WO4**, **Samy8z**
 > TODO
 
 ***
+***
 
 ## Éventuels bugs
 
-> TODO
+- Entrée d'un nombre supérieur à 32767. (Overflow, mais pas de crash)
+- Entrée d'un nombre négatif. (Affiche uniquement des 0)
+- Entrée d'un zoom de 0. (N'affiche rien, correspond au résultat attendu)
+- Entrée de coordonées négatives. (Affiche n'importe quoi)
+
+***
+***
+
+## Ordre de programmation
+
+1. Groupe FP5  
+ Pour pouvoir tester les étapes de data-process, le mieux et de commençer par le data-out.
+   - FT5.(1&2).1 → FS5.1 & FS5.2 → FP5  
+    Ainsi, il suffit de remonter dans l'arbre, en partant donc du bas.
+
+2. FP4 → FS3.1 → FP3 → FP2.1 → FP2  
+ Nous pouvons donc commencer le data-process, par la fin, car cela nous permet de directement envoyer le résultat de cette procédure dans le data-out, FP5.
+
+3. FP1  
+ Maintenant que le data-process et le data-out sont fonctionels, nous pouvont programmer le data-in, et nous pouvons, sans aucune difficulté s'assurer qu'il fonctionne.
+
+***
+***
+
+## Fiches de programmation
+
+![FP1](Images/FP1.png)
+***
+![FP2](Images/FP2.png)
+***
+![FP3](Images/FP3.png)
+***
+![FP4](Images/FP4.png)
+***
+![FP5](Images/FP5.png)
+***
+![FP2.1](Images/FS2.1.png)
+***
+![FP3.1](Images/FS3.1.png)
+***
+![FS5.1&FP5.2](Images/FS5.1&FS5.2.png)
+***
+![FT5.(1&2).1](Images/FT5.(1&2).1.png)

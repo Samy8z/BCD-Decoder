@@ -9,8 +9,8 @@ type
 	intArray = array of integer;
 	nibble = array [1..4] of boolean;
 	nibbleArray = array of nibble;
-	dispArray = array [1..7] of boolean;
-	dispArrayArray = array of dispArray;
+	dispSegments = array [1..7] of boolean;
+	dispSegmentsArray = array of dispSegments;
 
 procedure TakeInput(var inputInt, zoom, x, y: integer);
 // TAKE_INPUT
@@ -90,17 +90,17 @@ procedure DigitArrToBinArr(var digitArr: intArray; var binArr: nibbleArray);
 // IN: digitArr
 // OUT: binArr
 var
-	i: integer;
+	i, t: integer;
 begin
-	SetLength(binArr, 0);
-	for i := 0 to Length(digitArr) - 1 do
+	t := Length(digitArr);
+	SetLength(binArr, t);
+	for i := 0 to t - 1 do
 	begin
-		SetLength(binArr, Length(binArr) + 1);
 		ConvBin(digitArr[i], binArr[i]);
 	end;
 end;
 
-procedure ConvDispArr(var binArr: nibbleArray; var dispArr: dispArrayArray);
+procedure ConvDispArr(var binArr: nibbleArray; var dispArr: dispSegmentsArray);
 // CONV_DISP_ARR
 // AL 2021-11-12
 // Transforme un tableau de tableau de 4 bits en tableau de tableau de 7 bits pour l'affichage
@@ -109,18 +109,19 @@ procedure ConvDispArr(var binArr: nibbleArray; var dispArr: dispArrayArray);
 // OUT: dispArr
 var
 	a, b, c, d: boolean;
-	i: integer;
+	i, t: integer;
 begin
-	SetLength(dispArr, 0);
-	for i := 0 to Length(binArr) - 1 do
+	t := Length(binArr);
+	SetLength(dispArr, t);
+	for i := 0 to t - 1 do
 	begin
+		// Définition de raccourcis vers les bits
 		a := binArr[i][1];
 		b := binArr[i][2];
 		c := binArr[i][3];
 		d := binArr[i][4];
 
-		SetLength(dispArr, Length(dispArr) + 1);
-
+		// Application des formules de Karnaugh
 		dispArr[i][1] := a or c or (d = b);
 		dispArr[i][2] := (not b) or (c = d);
 		dispArr[i][3] := b or (not c) or d;
@@ -170,7 +171,7 @@ begin
 	DrawSquare(xStart, yStart, xSize, 1);
 end;
 
-procedure DrawNumbers(x, y, zoom: integer; var dispArr: dispArrayArray);
+procedure DrawNumbers(x, y, zoom: integer; var dispArr: dispSegmentsArray);
 // DISPLAY_NUMBERS
 // AL 2021-11-12
 // Affiche les nombres dans la console
@@ -208,7 +209,10 @@ var
 	x, y: integer;
 	digitArr: intArray;
 	binArr: nibbleArray;
-	dispArr: dispArrayArray;
+	dispArr: dispSegmentsArray;
+	// Utilisée seulement pour éviter l'arrêt imédiat du programme
+	_: string;
+
 begin
 	// Data-in
 	TakeInput(inputInt, zoom, x, y);
@@ -226,5 +230,5 @@ begin
 	DrawNumbers(x, y, zoom, dispArr);
 
 	// Pour empêcher l'arrêt immédiat du programme
-	read(inputInt);
+	read(_);
 end.
