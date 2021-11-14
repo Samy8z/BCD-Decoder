@@ -9,7 +9,7 @@ procedure DigitArrToBinArr(var digitArr:ArrayInt;var binArr:ArrayTableau);
 begin
     t := taille(digitArr);
     FixeTaille(binArr,t)
-    for i:= to taille(digitArr) - 1 do
+    for i:=0 to taille(digitArr) - 1 do
     begin
         ConvBin(digitArr[i],binArr[i])
     end;
