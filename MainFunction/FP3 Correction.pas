@@ -38,4 +38,6 @@ begin
     begin
         ConvBin(digitArr[i], binArr[i])
     end;
-end;
+// S: Un programme Pascal se finit comme une phrase, par un point.
+// C: end; -> end.
+end.
