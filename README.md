@@ -50,9 +50,9 @@ Code source dans le fichier <ins>./Decodeur.pas</ins>
 
 ## Éventuels bugs
 
-- Entrée d'un nombre supérieur à 32767. (Overflow, mais pas de crash)
-- Entrée d'un nombre négatif. (Affiche uniquement des 0)
-- Entrée d'un zoom de 0. (N'affiche rien, correspond au résultat attendu)
+- Entrée d'un nombre supérieur à 18,446,744,073,709,551,615 (2^64 - 1). (Overflow, mais pas de crash)
+- Entrée d'un nombre négatif. (Le programme crash)
+- Entrée d'un zoom inférieur ou égal à 0. (N'affiche rien)
 - Entrée de coordonées négatives. (Affiche n'importe quoi)
 
 ***

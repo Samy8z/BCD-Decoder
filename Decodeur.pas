@@ -6,14 +6,14 @@ uses
 
 // Definition des types
 type
-	intArray = array of integer;
+	intArray = array of QWord;
 	nibble = array [1..4] of boolean;
 	nibbleArray = array of nibble;
 	dispSegments = array [1..7] of boolean;
 	dispSegmentsArray = array of dispSegments;
 
 
-procedure TakeInput(var inputInt, zoom, x, y: integer);
+procedure TakeInput(var inputInt: QWord; var zoom, x, y: integer);
 // TAKE_INPUT
 // AL 2021-11-12
 // Demande à l'utilisateur d'entrer un entier, un niveau de zoom, et des coordonnées
@@ -60,7 +60,7 @@ begin
 	end; } // Autre version considérée, fonctionellement équivalente
 end;
 
-procedure IntToDigitArr(inputInt: integer; var digitArr: intArray);
+procedure IntToDigitArr(inputInt: QWord; var digitArr: intArray);
 // INT_TO_DIGIT_ARR
 // AL 2021-11-12
 // Transforme un entier en tableau de chiffres
@@ -222,7 +222,7 @@ end;
 
 var
 	// Variables entrées par l'utilisateur
-	inputInt: integer;
+	inputInt: QWord;
 	zoom: integer;
 	x, y: integer;
 
