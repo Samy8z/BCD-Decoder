@@ -6,27 +6,30 @@ uses
 
 // Definition des types
 type
-	intArray = array of QWord;
+	intArray = array of Int64;
 	nibble = array [1..4] of boolean;
 	nibbleArray = array of nibble;
 	dispSegments = array [1..7] of boolean;
 	dispSegmentsArray = array of dispSegments;
 
 
-procedure TakeInput(var inputInt: QWord; var zoom, x, y: integer);
+procedure TakeInput(var inputInt: Int64; var zoom, x, y: integer);
 // TAKE_INPUT
 // AL 2021-11-12
 // Demande à l'utilisateur d'entrer un entier, un niveau de zoom, et des coordonnées
 // IN: -
 // OUT: inputInt, zoom, x, y
 begin
+	// On demande à l'utilisateur d'entrer les variables
 	write('Enter a number, a zoom level, and coordinates: ');
 
+	// Lecture des variables
 	read(inputInt);
 	read(zoom);
 	read(x);
 	readLn(y);
 end;
+
 
 procedure RevArray(var arr: intArray);
 // REV_ARRAY
@@ -38,29 +41,35 @@ var
 	i, j: integer;
 	tmp: integer;
 begin
+	// Initialisation des variables
 	i := 0;
     j := Length(arr) - 1;
 
+
+	// On bouge le curseur de début et de fin, jusqu'à ce qu'ils se croisent
     while (i < j) do
     begin
+		// On échange les éléments
         tmp := arr[i];
         arr[i] := arr[j];
         arr[j] := tmp;
 
+		// On incrémente et décrémente les curseurs
         i := i + 1;
         j := j - 1;
     end;
 
+	// Autre version considérée, fonctionellement équivalente
 	{ n := Length(arr);
 	for i := 0 to (n div 2) - 1 do
 	begin
 		temp := arr[i];
 		arr[i] := arr[n - 1 - i];
 		arr[n - 1 - i] := temp;
-	end; } // Autre version considérée, fonctionellement équivalente
+	end; }
 end;
 
-procedure IntToDigitArr(inputInt: QWord; var digitArr: intArray);
+procedure IntToDigitArr(inputInt: Int64; var digitArr: intArray);
 // INT_TO_DIGIT_ARR
 // AL 2021-11-12
 // Transforme un entier en tableau de chiffres
@@ -69,18 +78,24 @@ procedure IntToDigitArr(inputInt: QWord; var digitArr: intArray);
 var
 	n: integer;
 begin
+	// On initialise le tableau
 	SetLength(digitArr, 0);
 
+	// On boucle tant que l'entier n'est pas nul
 	repeat
+		// On ajoute une case de chiffre au tableau
 		n := Length(digitArr);
 		SetLength(digitArr, n + 1);
 
+		// On récupère le chiffre des unités du nombre
 		digitArr[n] := inputInt mod 10;
+		// On divise le nombre par 10
 		inputInt := inputInt div 10;
 	until inputInt = 0;
 
 	RevArray(digitArr);
 end;
+
 
 procedure ConvBin(digit: integer; var binRepr: nibble);
 // CONV_BIN
@@ -93,12 +108,18 @@ var
 begin
 	i := 4;
 
+	// On boucle tant que le chiffre n'est pas nul
 	repeat
+		// On récupère la valeur du bit
 		binRepr[i] := digit mod 2 = 1;
-
+		// On divise le chiffre par 2
 		digit := digit div 2;
+
+		// On décrémente le compteur
 		i := i - 1;
 	until digit = 0;
+
+	// Étant sur du nombre de bits, on peut parcourir la liste à l'envers, pour éviter d'avoir à appeller RevArray
 end;
 
 procedure DigitArrToBinArr(var digitArr: intArray; var binReprArr: nibbleArray);
@@ -110,12 +131,15 @@ procedure DigitArrToBinArr(var digitArr: intArray; var binReprArr: nibbleArray);
 var
 	i, t: integer;
 begin
+	// On initialise le tableau, en lui allouant la même taille que digitArr
 	t := Length(digitArr);
 	SetLength(binReprArr, t);
 
+	// On boucle sur tous les chiffres du tableau
 	for i := 0 to t - 1 do
 		ConvBin(digitArr[i], binReprArr[i]);
 end;
+
 
 procedure ConvDispArr(var binReprArr: nibbleArray; var dispArr: dispSegmentsArray);
 // CONV_DISP_ARR
@@ -128,9 +152,11 @@ var
 	a, b, c, d: boolean;
 	i, t: integer;
 begin
+	// On initialise le tableau, en lui allouant la même taille que binReprArr
 	t := Length(binReprArr);
 	SetLength(dispArr, t);
 
+	// On boucle sur toutes les représentations binaires
 	for i := 0 to t - 1 do
 	begin
 		// Définition de raccourcis vers les bits
@@ -150,7 +176,8 @@ begin
 	end;
 end;
 
-procedure DrawSquare(xStart, yStart, xSize, ySize: integer);
+
+procedure DrawRect(xStart, yStart, xSize, ySize: integer);
 // DRAW_SQUARE
 // AL 2021-11-12
 // Dessine un carré dans la console
@@ -159,9 +186,12 @@ procedure DrawSquare(xStart, yStart, xSize, ySize: integer);
 var
 	i, j: integer;
 begin
+	// On boucle sur les lignes
 	for i := 0 to ySize - 1 do
+		// On boucle sur les colonnes
 		for j := 0 to xSize - 1 do
 		begin
+			// On va à la position courante, et on affiche '*'
 			GotoXY(xStart + j, yStart + i);
 			write('*');
 		end;
@@ -174,7 +204,8 @@ procedure DrawVLine(xStart, yStart, ySize: integer);
 // IN: xStart, yStart, ySize
 // OUT: -
 begin
-	DrawSquare(xStart, yStart, 1, ySize);
+	// Un rectangle de largeur 1 est une ligne verticale
+	DrawRect(xStart, yStart, 1, ySize);
 end;
 
 procedure DrawHLine(xStart, yStart, xSize: integer);
@@ -184,7 +215,8 @@ procedure DrawHLine(xStart, yStart, xSize: integer);
 // IN: xStart, yStart, xSize
 // OUT: -
 begin
-	DrawSquare(xStart, yStart, xSize, 1);
+	// Un rectangle de hauteur 1 est une ligne horizontale
+	DrawRect(xStart, yStart, xSize, 1);
 end;
 
 procedure DrawNumbers(x, y, zoom: integer; var dispArr: dispSegmentsArray);
@@ -196,9 +228,11 @@ procedure DrawNumbers(x, y, zoom: integer; var dispArr: dispSegmentsArray);
 var
 	i, t: integer;
 begin
+	// Pour chaque chiffre du nombre
 	t := Length(dispArr);
 	for i := 0 to t - 1 do
 	begin
+		// On affiche les segments, suivant le tableau
 		if dispArr[i][1] then
 			DrawHLine(x+1, y, zoom);
 		if dispArr[i][2] then
@@ -214,7 +248,7 @@ begin
 		if dispArr[i][7] then
 			DrawHLine(x+1, y+zoom+1, zoom);
 		
-		// On déplace l'origine pour afficher le nombre suivant
+		// On décale l'affichage de 1 caractère
 		x := x + zoom + 3;
 	end;
 end;
@@ -222,11 +256,12 @@ end;
 
 var
 	// Variables entrées par l'utilisateur
-	inputInt: QWord;
+	inputInt: Int64;
 	zoom: integer;
 	x, y: integer;
 
 	// Variables utilisées par le programme
+	isNeg: boolean;
 	digitArr: intArray;
 	binReprArr: nibbleArray;
 	dispArr: dispSegmentsArray;
@@ -237,6 +272,13 @@ var
 begin
 	// Data-in
 	TakeInput(inputInt, zoom, x, y);
+
+	{ Pas dans l'analyse, rajouté en bonus }
+	// On gère le cas où l'entrée est négative
+	isNeg := inputInt < 0;
+	if isNeg then
+		inputInt := -inputInt;
+
 	// Décalage des coordonnées, pour correspondre à un système commençant en (0, 0)
 	x := x + 1;
 	y := y + 1;
@@ -248,6 +290,18 @@ begin
 
 	// Data-out
 	ClrScr;
+
+	{ Pas dans l'analyse, rajouté en bonus }
+	// Si l'entrée est négative, on affiche un '-'
+	if isNeg then
+	begin
+		// On affiche le signe
+		DrawHLine(x+1, y+zoom+1, zoom);
+
+		// On décale l'affichage de 1 caractère
+		x := x + zoom + 3
+	end;
+
 	DrawNumbers(x, y, zoom, dispArr);
 
 	// Pour empêcher l'arrêt immédiat du programme

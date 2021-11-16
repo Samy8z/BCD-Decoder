@@ -3,8 +3,8 @@
 Projet d'affichage d'un nombre sur un 7-segment.  
 Auteurs: **H2WO4**, **Samy8z**
 
-Code source dans le fichier <ins>./Decodeur.pas</ins>  
-Éxécutable dans le fichier <ins>out/Decodeur.exe</ins>
+Code source dans le fichier [./Decodeur.pas](./Decodeur.pas)  
+Éxécutable dans le fichier [out/Decodeur.exe](out/Decodeur.exe)
 
 ***
 ***
