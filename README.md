@@ -4,7 +4,7 @@ Projet d'affichage d'un nombre sur un 7-segment.
 Auteurs: **H2WO4**, **Samy8z**
 
 Code source dans le fichier [./Decodeur.pas](./Decodeur.pas)  
-Éxécutable dans le fichier [out/Decodeur.exe](out/Decodeur.exe)
+Éxécutable dans le fichier [out/Decodeur.exe](https://github.com/Samy8z/BCD-Decoder/raw/main/out/Decodeur.exe)
 
 ***
 ***
