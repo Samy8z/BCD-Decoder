@@ -48,6 +48,55 @@ Code source dans le fichier [./Decodeur.pas](./Decodeur.pas)
 ***
 ***
 
+## Tableaux de Karnaugh
+
+L'étape 4 nécessite des équations le plus simple possible pour effectuer la conversion.  
+Une méthode pour obtenir de telles équations est la méthode de Karnaugh, ici utilisé.  
+Les équations ont ensuite encore été simplifié via l'algèbre de Boole, via factorisation des termes, ainsi que l'utilisation des portes XOR et XAND.
+
+### Segment A
+
+![KarnaughA](Images/KarnaughA.png)
+
+***
+
+### Segment B
+
+![KarnaughB](Images/KarnaughB.png)
+
+***
+
+### Segment C
+
+![KarnaughC](Images/KarnaughC.png)
+
+***
+
+### Segment D
+
+![KarnaughD](Images/KarnaughD.png)
+
+***
+
+### Segment E
+
+![KarnaughE](Images/KarnaughE.png)
+
+***
+
+### Segment F
+
+![KarnaughF](Images/KarnaughF.png)
+
+***
+
+### Segment G
+
+![KarnaughG](Images/KarnaughG.png)
+
+***
+***
+
 ## Éventuels bugs
 
 - Entrée d'un nombre supérieur à 18,446,744,073,709,551,615 (2^64 - 1). (Overflow, mais pas de crash)
