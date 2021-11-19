@@ -6,13 +6,13 @@ Auteurs: **H2WO4**, **Samy8z**
 Code source dans le fichier [./Decodeur.pas](./Decodeur.pas)  
 Éxécutable dans le fichier [out/Decodeur.exe](https://github.com/Samy8z/BCD-Decoder/raw/main/out/Decodeur.exe)
 
-***
-***
+## Sommaire
 
-## Options incluses
-
-- Entrée d'un nombre plutôt qu'un chiffre
-- Entrée d'un niveau de zoom
+1. [Raisonement](#raisonement-derrière-lanalyse)
+2. [Tableaux de Karnaugh](#tableaux-de-karnaugh)
+3. [Éventuels bugs](#éventuels-bugs)
+4. [Ordre de programmation](#ordre-de-programmation)
+5. [Fiches de programmation](#fiches-de-programmation)
 
 ***
 ***
@@ -42,6 +42,11 @@ Code source dans le fichier [./Decodeur.pas](./Decodeur.pas)
     Ce morceau de code est réutilisé plusieurs fois avec des paramètres différents, il a donc été jugé judicieux d'en faire ça propre procédure.
       1. Procédure pour afficher un rectangle.  
        Les deux procédures précédentes sont très similaires, pour éviter la répétition de code, il a été jugé plus élégant de les faire "hériter" d'une procédure mère.
+
+### Options incluses
+
+- Entrée d'un nombre plutôt qu'un chiffre
+- Entrée d'un niveau de zoom
 
 ![Arbre d'analyse](Images/Arbre.png)
 
